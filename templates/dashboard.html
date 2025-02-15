@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<style>
+    .add_product input{
+        padding-right: 20px;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+<h3>Hello {{session['name']}}</h3>
+<table>
+    <tr>
+        <th>Product Image</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Quantity</th>
+        <th>Seller Name</th>
+        <th>Add to Cart</th>
+    </tr>
+    {% for product in products %}
+    <tr id="product_Id:{{product.Product_Id}}">
+        <td><img src="{{ product.Product_URL }}" alt="Product Image"></td>
+        <td>{{ product.Product_Name }}</td>
+        <td>{{ product.Product_Price }}</td>
+        <td>{{ product.Product_Quantity }}</td>
+        <td>{{product.Shop_Name}}</td>
+        <td><input type="number" value="1" id="no_of_quantity{{product.Product_Id}}" style="width: 25px;"> <button onclick="add_to_cart('{{product.Product_Id}}')">+</button></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script>
+    function add_to_cart(id){
+        var product_quantity = $('#no_of_quantity'+id).val();
+        $.ajax({
+            url: '/add_to_cart',
+            data: {product_id:id,quantity:product_quantity},
+            type: 'POST',
+            success:function(response){
+                console.log(response.msg);
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

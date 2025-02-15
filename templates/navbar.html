@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+       
+       .navbar {
+  background-color: #e0dddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 60px;
+}
+
+.logo {
+  height: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.webname {
+  color: crimson;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: green;
+}
+
+    </style>
+
+</head>
+<body>
+    {% if session['role']=='null' %}
+    <div class="navbar">
+        <img class="logo" src="https://drive.google.com/uc?id=1WIgbW3tjbSd1iMVawMqNEosX7bJDOkJQ" alt="Logo">
+        <h2 class="webname">E-Grocery</h2>
+        <a href="dashboard">Dashboard</a>
+        <p>For Adding Product You should <a href="/">Login</a></p>
+    </div>
+    <!-- For USER -->
+    {% elif session['role'] == 'user' %}
+    <div class="navbar">
+        <img class="logo" src="https://drive.google.com/uc?id=1WIgbW3tjbSd1iMVawMqNEosX7bJDOkJQ" alt="Logo">
+        <h2 class="webname">E-Grocery</h2>
+        <ul>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="user_carts">Your Carts</a></li>
+            <li><a href="user_orders">Your Orders</a></li>
+            <li><a href="logout">Logout</a></li>
+        </ul>
+    </div>
+    <!-- For ADMIN -->
+    {% elif session['role'] == 'admin' %}    
+    <div class="navbar">
+        <img class="logo" src="https://drive.google.com/uc?id=1WIgbW3tjbSd1iMVawMqNEosX7bJDOkJQ" alt="Logo">
+        <h2 class="webname">E-Grocery</h2>
+        <ul>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="modify_user">Modify User</a></li>
+            <li><a href="modify_seller">Modify Seller</a></li>
+            <li><a href="logout">Logout</a></li>
+        </ul>
+    </div>
+    <!-- For Seller -->
+    {% elif session['role'] == 'seller' %}    
+    <div class="navbar">
+        <img class="logo" src="https://drive.google.com/uc?id=1WIgbW3tjbSd1iMVawMqNEosX7bJDOkJQ" alt="Logo">
+        <h2 class="webname">E-Grocery</h2>
+        <ul>
+            <li><a href="dashboard">Dashboard</a></li>
+            <li><a href="view_products">Visit Your Product</a></li>
+            <li><a href="view_orders">View Orders</a></li>
+            <li><a href="logout">Logout</a></li>
+        </ul>
+    </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<style>
+    .add_product input{
+        padding-right: 20px;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+  .btn_order_now{
+    position: fixed;
+  bottom: 20px;
+  right: 30px;
+    border-radius: 30px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+
+<table>
+    <tr>
+        <th>Coustomer ID</th>
+        <th>Product Name</th>
+        <th>Product Picture</th>
+        <th>Quantity</th>
+    </tr>
+    {% for order in orders %}
+    <tr>
+        <td>{{order.Id}}</td>
+        <td>{{order.Product_Name}}</td>
+        <td><img src="{{order.URL}}" alt=""></td>
+        <td>{{order.Product_Quantity}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

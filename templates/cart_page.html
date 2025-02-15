@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<style>
+    .add_product input{
+        padding-right: 20px;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+  .btn_order_now{
+    position: fixed;
+  bottom: 20px;
+  right: 30px;
+    border-radius: 30px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+<table id="tb_cart_products">
+    <tr>
+        <th>Product Quantity</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Quantity</th>
+        <th>Total Price</th>
+        <th>Shop Name</th>
+    </tr>
+    {% for cart in carts %}
+    <tr>
+        <td><img src="{{cart.URL}}" alt="product image"></td>
+        <td>{{cart.Product_Name}}</td>
+        <td>{{cart.Product_Price}}</td>
+        <td>{{cart.Product_Quantity}}</td>
+        <td>{{cart.Product_Price*cart.Product_Quantity}}
+        </td>
+        <td>{{cart.Shop_Name}}</td>
+    </tr>
+    {% endfor %}
+    <td colspan="4"></td>
+        <td>Total: {{total_price}}</td>
+        <td></td>
+</table>
+
+<button class="btn_order_now" onclick="confirm_orders()">Order Now</button>
+
+<script>
+    function confirm_orders(){
+        $.ajax({
+            url: '/move_to_orders',
+            method:'POST',
+            success:function(response){
+                console.log(response.msg);
+                document.getElementById("tb_cart_products").value = "";
+            }
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+
+<style>
+        body{
+        padding: 0;
+        margin: 0;
+       }
+    .registerform{
+    background-color: white;
+    border-style: dotted;
+    border-color: black;
+    border-radius: 20px;
+    margin-left: 40%;
+    margin-top: 12%;
+    height: 500px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+    .registerform input{
+        margin-bottom: 20px;
+        align-items: center;
+        height: 30px;
+        text-align: center;
+        border-color: black;
+        border-radius: 30px;
+    }
+</style>
+
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+
+    <div class="registerform">
+        <form method="post">
+            <br><label>Name</label><br>
+            <input type="text" name="username" required><br>
+            <br><label>Mobile</label><br>
+            <input type="tel" name="usernumber" required><br>
+            <br><label>Email</label><br>
+            <input type="email" name="useremail" id="email" required><br>
+            <br><label>Password</label><br>
+            <input type="password" name="userpassword" placeholder="Atleast 6 letters" requireds><br>
+            <!-- <br><button onclick="btn_signup()">SIGN UP</button>  -->
+            <input type="submit" value="SIGNUP">
+        </form>
+    </div>
+
+
+
+
+
+    <!-- <script>
+        function btn_signup(){
+        var email = $('#email').val();
+        $.ajax({
+                url: '/valid_email',
+                data: {data:email},
+                type: 'POST',
+                success:function(response){
+                    console.log(response.success);
+                    if (response.success === true) {
+                   alert("Good Email");
+            }
+                },
+                error: function(error){
+			 	    console.log(error);
+                    alert("The entered Email is Incorrect");
+			    }
+            });
+    }
+    </script> -->
+
+{% endblock %} 

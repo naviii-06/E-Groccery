@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .add_product input{
+        padding-right: 20px;
+    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  img {
+    max-width: 100px;
+    height: auto;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+{% include 'navbar.html' %}
+<br>
+<!-- <form method="post" class="add_product"> -->
+    <label>Product Name</label>
+    <input type="text" name="product_name" id="product_name" required>
+    <label>Product Price</label>
+    <input type="text" name="product_price" id="product_price" required>
+    <label>Product Quantity</label>
+    <input type="number" name="product_quantity" id="product_quantity" required>
+    <label>Product URL</label>
+    <input type="text" name="product_url" id="product_url" placeholder="Enter a image URL" required>
+    <label>Shop Name</label>
+    <input type="text" value="{{session['shop_name']}}" id="shop_name" readonly>
+    <button onclick="add_to_shop()">Add Product</button>
+
+<hr>
+
+<!-- <table>
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Quantity</th>
+        <th>Product Picture</th>
+        <th>Edit</th>
+    </tr>
+    {% for product in Products %}
+    <tr>
+        <td>Product.Product_Name</td>
+        <td>Product.Product_Price</td>
+        <td>Product.Product_Quantity</td>
+        <th><img src="{{Product.Product_URL}}" alt="image_of_Product"></th>
+        <th><button>Edit</button></th>
+    </tr>
+    {% endfor %}
+</table> -->
+
+<table>
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Image</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr id="product_Id:{{product.Product_Id}}">
+        <td>{{ product.Product_Name }}</td>
+        <td>{{ product.Product_Price }}</td>
+        <td>{{ product.Product_Quantity }}</td>
+        <td><img src="{{ product.Product_URL }}" alt="Product Image"></td>
+        <td><button><i class="fa-regular fa-pen-to-square"></i>Edit</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<script>
+    function add_to_shop(){
+        var product_name = $('#product_name').val();
+        var product_price = $('#product_price').val();
+        var product_quantity = $('#product_quantity').val();
+        var product_url = $('#product_url').val();
+        var shop_name = $('#shop_name').val();
+        console.log("Ajax called");
+        $.ajax({
+            url: '/add_product_to_shop',
+            data: {product_name:product_name, product_price:product_price, product_quantity:product_quantity, product_url:product_url, shop_name:shop_name},
+            type: 'POST',
+            success:function(response){
+                console.log(response.msg);
+                alert("Product Added Successfully");
+                document.getElementById("product_name").value = "";
+                document.getElementById("product_price").value = "";
+                document.getElementById("product_quantity").value = "";
+                document.getElementById("product_url").value = "";
+            }
+        });
+    }
+</script>
+
+{% endblock %}

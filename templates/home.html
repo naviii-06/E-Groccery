@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+       }
+    .loginform{
+    background-color: white;
+    border-style: dotted;
+    border-color: black;
+    border-radius: 20px;
+    margin-left: 40%;
+    height: 300px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+    .loginform input{
+        margin-bottom: 20px;
+        align-items: center;
+        height: 30px;
+        text-align: center;
+        border-color: black;
+        border-radius: 30px;
+    }
+    .coverimagge img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        position: relative;
+    }
+</style>
+
+<script>
+    console.log('{{msg}}')
+    if ('{{msg}}' != ''){
+        alert('{{msg}}');
+    }
+    
+</script>
+
+{% endblock %}
+
+{% block body %} 
+{% include 'navbar.html' %}
+<div class="coverimagge">
+    <img src="https://th.bing.com/th/id/R.31483cb282a04610cdf2ee29859ddf51?rik=n6og%2fRg2BC8B9Q&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fgrocery-items-png-supermarket-new-york-962.png&ehk=HEQwIDzVsNHRGQdYhbHeRKcBOFEeTF%2fwOGVSRp5mWCM%3d&risl=&pid=ImgRaw&r=0" alt="coverimagge">
+</div>
+
+<div>
+    <div id="msg" hidden>{{msg}}</div>
+</div>
+    
+    <div class="loginform">
+        <form method="post">
+            
+            <input type="text" placeholder="Enter name or Email" name="username"><br>
+            <input type="password" placeholder="Enter Password" name="password"><br>
+            <input id="loginbutton" type="submit" value="Login"><br>
+        </form>
+        <a href="{{url_for('register')}}">Dont have an account?</a>
+    </div>
+    
+
+{% endblock %}
